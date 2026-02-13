@@ -1,0 +1,48 @@
+---
+title: "Global Baseline Estimate"
+author: "Guibril Ramde"
+date: "2026-02-12"
+output: html_document
+---
+
+# Approach
+
+For this assignment, I will use the **MovieLens 100k dataset**, which is 
+straightforward to manipulate and provides an excellent opportunity to practice
+data handling and analysis. The dataset will be downloaded and stored in my 
+GitHub repository, allowing me to access the raw data directly.
+
+The workflow for this analysis is as follows:
+
+1. **Data Loading and Preparation:**  
+   I will load the dataset into R using the `dplyr` and `tidyr` libraries.
+   After loading, I will reformat the data to match the requirements of this
+   assignment.
+
+2. **Global Baseline Computation:**  
+   - Calculate the **global mean rating**.  
+   - Compute **user bias** and **movie bias**.
+
+3. **Prediction of Ratings:**  
+   Using the global baseline, I will predict missing ratings for recommendation 
+   purposes.
+
+```r
+library(dplyr)
+library(tidyr)
+library(readr)
+
+# Load the dataset from GitHub
+url <- "https://raw.githubusercontent.com/japhet125/global-baseline-assign/refs/heads/main/u.data"
+
+ratings <- read_delim(
+  url,
+  delim = "\t",
+  col_names = c("userId", "movieId", "rating", "timestamp")
+)
+
+# Keep only the relevant columns
+ratings <- ratings[, c("userId", "movieId", "rating")]
+
+# Preview the dataset
+head(ratings)
