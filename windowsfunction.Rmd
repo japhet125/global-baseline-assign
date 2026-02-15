@@ -31,3 +31,29 @@ data$price <- round(runif(nrow(data), 1000, 50000), 2)
 
 # Preview dataset
 head(data)
+
+data_analysis <- data %>%
+  arrange(crypto, date) %>%
+  group_by(crypto) %>%
+  
+  mutate(ytd_avg = cummean(price)) %>%
+  
+  mutate( ma_6day = zoo::rollmean(price, k = 6, fill = NA, align = "right")) %>%
+  ungroup()
+  
+
+head(data_analysis, 10)  
+```
+
+#Conclusion
+This assignment demonstrates the application of window functions to time series
+data containing multiple independent items. Using synthetic cryptocurrency data,
+I computed both the cumulative year-to-date average and a six-day moving average
+for each asset.
+
+Window functions allow us to perform rolling and cumulative calculations without
+aggregating or collapsing the dataset, preserving the full time series structure.
+This approach is particularly useful for financial analysis, forecasting, and 
+exploratory data analysis involving temporal trends.
+
+
